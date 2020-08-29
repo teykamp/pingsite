@@ -1,6 +1,11 @@
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+
 /*
 TODO: ping client
 >>>>> For now only gets ping from server! <<<<<
+
+ERROR: LINE  48: async is currently false. if it is true, then there is no promise implemented yet. Use promise to make sure it doesnt return UNDEFINED!
+https://www.geeksforgeeks.org/how-to-wait-for-a-promise-to-finish-before-returning-the-variable-of-a-function/
 */
 
 
@@ -35,13 +40,13 @@ var ip = ["23.235.60.92",       /*N. Virginia*/
 
 var pingTimes = [];
 
-function ping(host) {
+function ping(host="8.8.8.8") {
 
     var started = new Date().getTime();
   
     var http = new XMLHttpRequest();
   
-    http.open("GET", "http://" + host + ":" + /*async*/true);
+    http.open("GET", "http://" + host + ":", /*async*/false);
     http.onreadystatechange = function() {
       
         if (http.readyState == 4) {
@@ -50,7 +55,7 @@ function ping(host) {
             
             // get ping
             var milliseconds = ended - started;
-    
+            
             return milliseconds;
 
         }
@@ -70,41 +75,44 @@ function ping(host) {
 function wrap(arr, n) {
 
     // averages by n pings
-    var result = {};
+    var result = [];
 
     for (var i = 0; i < arr.length;) {
 
         var sum = 0;
 
-        for(var j = 0; j < n; j++){
+        for(var j = 0; j < n; j++) {
 
         // Check if value is numeric. If not use 0
-        sum += +arr[i++] || 0
+        sum += +arr[i++] || 0;
 
         }
 
-      result.push(sum/n);
+      result.push(sum / n);
 
     }
 
-    return result
+    return result;
 
 }
 
-function main(n) {
+function main(n=1) {
 
     // make sure to call include n server pings from css call
-    for (var i = 0; i <= ip.length; i++) {
+    for (var i = 0; i < ip.length; i++) {
 
         for (var j = 0; j < n; j++) {
             
             // append to array
+            
             pingTimes.push(ping(ip[i]));
 
         }
 
     } 
-    
+
     return wrap(pingTimes, n);
 
 }
+
+console.log(main());
