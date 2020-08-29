@@ -1,0 +1,2 @@
+# pingsite
+Global Ping Display
