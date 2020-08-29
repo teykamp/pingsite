@@ -52,7 +52,7 @@ function ping(host) {
     
             return milliseconds;
 
-      }
+        }
 
     }
 
