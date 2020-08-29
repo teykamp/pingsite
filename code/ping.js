@@ -42,7 +42,7 @@ var pingTimes = [];
 
 function ping(host="8.8.8.8") {
 
-    var started = new Date().getTime();
+    var starting = new Date().getTime();
   
     var http = new XMLHttpRequest();
   
@@ -51,12 +51,12 @@ function ping(host="8.8.8.8") {
       
         if (http.readyState == 4) {
 
-            var ended = new Date().getTime();
+            var ending = new Date().getTime();
             
             // get ping
-            var milliseconds = ended - started;
+            var ms = ending - starting;
             
-            return milliseconds;
+            return ms;
 
         }
 
@@ -67,32 +67,32 @@ function ping(host="8.8.8.8") {
       http.send(null);
 
     } catch(exception) {
-    // this is expected
+    ///////////////////
     }
   
   }
 
-function wrap(arr, n) {
+function wrap(array, n) {
 
     // averages by n pings
-    var result = [];
+    var avgPing = [];
 
-    for (var i = 0; i < arr.length;) {
+    for (var i = 0; i < array.length;) {
 
         var sum = 0;
 
         for(var j = 0; j < n; j++) {
 
-        // Check if value is numeric. If not use 0
-        sum += +arr[i++] || 0;
+        // Check if value is a number. If not use 0
+        sum += +array[i++] || 0;
 
         }
 
-      result.push(sum / n);
+      avgPing.push(sum / n);
 
     }
 
-    return result;
+    return avgPing;
 
 }
 
