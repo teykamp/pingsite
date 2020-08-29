@@ -45,6 +45,7 @@ function ping(host) {
     http.onreadystatechange = function() {
       
         if (http.readyState == 4) {
+
             var ended = new Date().getTime();
             
             // get ping
@@ -61,7 +62,7 @@ function ping(host) {
       http.send(null);
 
     } catch(exception) {
-      // this is expected
+    // this is expected
     }
   
   }
