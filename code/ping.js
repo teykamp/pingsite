@@ -1,11 +1,12 @@
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+var ping = require('ping');
 
 /*
 TODO: ping client
 >>>>> For now only gets ping from server! <<<<<
 
-ERROR: LINE  48: async is currently false. if it is true, then there is no promise implemented yet. Use promise to make sure it doesnt return UNDEFINED!
-https://www.geeksforgeeks.org/how-to-wait-for-a-promise-to-finish-before-returning-the-variable-of-a-function/
+!! Only pings once!!
+TODO: write for loop to ping multiple times and take average
 */
 
 
@@ -38,81 +39,26 @@ var ip = ["23.235.60.92",       /*N. Virginia*/
           "101.0.86.43",        /*Sydney*/
           "185.229.226.83"];    /*Tel-Aviv*/
 
+
+// Code
+
 var pingTimes = [];
 
-function ping(host="8.8.8.8") {
+ip.forEach(function (host) {
 
-    var starting = new Date().getTime();
-  
-    var http = new XMLHttpRequest();
-  
-    http.open("GET", "http://" + host + ":", /*async*/false);
-    http.onreadystatechange = function() {
-      
-        if (http.readyState == 4) {
+    var started = new Date().getTime();
 
-            var ending = new Date().getTime();
-            
-            // get ping
-            var ms = ending - starting;
-            
-            return ms;
+    ping.sys.probe(host, function() {
 
-        }
+        var ended = new Date().getTime();
 
-    }
+        pingTimes.push(ended - started)
+          
+    });
+});
 
-    try {
+console.log("Fetching Pings!")
+setTimeout(() => {  console.log(pingTimes); }, 2000);
 
-      http.send(null);
 
-    } catch(exception) {
-    ///////////////////
-    }
-  
-  }
 
-function wrap(array, n) {
-
-    // averages by n pings
-    var avgPing = [];
-
-    for (var i = 0; i < array.length;) {
-
-        var sum = 0;
-
-        for(var j = 0; j < n; j++) {
-
-        // Check if value is a number. If not use 0
-        sum += +array[i++] || 0;
-
-        }
-
-      avgPing.push(sum / n);
-
-    }
-
-    return avgPing;
-
-}
-
-function main(n=1) {
-
-    // make sure to call include n server pings from css call
-    for (var i = 0; i < ip.length; i++) {
-
-        for (var j = 0; j < n; j++) {
-            
-            // append to array
-            
-            pingTimes.push(ping(ip[i]));
-
-        }
-
-    } 
-
-    return wrap(pingTimes, n);
-
-}
-
-console.log(main());
