@@ -1,0 +1,29 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+#main {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    height: 100%;
+    background-color: black;
+}
+
+#header {
+    color: white;
+}
+
+#canvas {
+    background-color: darkblue;
+    height: 100%;
+    width: 100%;
+}
+
+#ping-button {
+    margin: 3vh;
+    width: 20%;
+    height: 10%;
+}
