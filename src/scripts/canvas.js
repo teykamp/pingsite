@@ -6,10 +6,10 @@ document.addEventListener("DOMContentLoaded", function(event){
 
 function main(){
     //display loading screen until all assets have loaded
-    draw_map();
+    draw_map(500, 500);
 };
 
-function draw_map(){
+function draw_map(map_width, map_height){
     var canvas = document.getElementById("canvas");
     var context = canvas.getContext("2d");
 
