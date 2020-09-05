@@ -12,6 +12,8 @@ function main(){
 
 function draw_map(){
 
+    var dragging = false;
+
     //canvas initialization
     var canvas = document.getElementById("canvas");
     var context = canvas.getContext("2d");
@@ -21,14 +23,17 @@ function draw_map(){
 
     //event listener shit
     canvas.addEventListener('mousedown', e => {
-        console.log('down');
-        console.log(context.y)
+        dragging = true;
     });
     canvas.addEventListener('mouseup', e => {
-        console.log('up');
+        dragging = false;
     });
     canvas.addEventListener('mousemove', e => {
-        console.log('poggggggggers')
+        console.log(dragging);
+        if(dragging){
+            var rect = canvas.getBoundingClientRect();
+            context.drawImage(map_image, e.offsetX, e.offsetY);
+        };
     });
 
     //drawing le map
