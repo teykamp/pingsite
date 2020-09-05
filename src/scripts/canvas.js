@@ -8,13 +8,7 @@ function main(){
 
     draw_map();
  
-    /* 
-    example:
-
-    for x in range(len(dict_of_ping_coords)):
-        draw_pings(x[0], x[1], circle_size(client_x, client_y, x[0], x[1]))
     
-    */
 
 };
 
@@ -55,7 +49,15 @@ function draw_map() {
     map_image.onload = function() {
         console.log('loading')
         context.drawImage(map_image, 0, 0);
-        draw_pings(200, 200, 20);
+
+        /* 
+    example:
+
+    for x in range(len(dict_of_ping_coords)):
+        draw_pings(x[0], x[1], circle_size(client_x, client_y, x[0], x[1]))
+    
+    */
+        draw_pings(500, 500, 200);
         
         console.log("width " + map_image.width)
         console.log("height " + map_image.height)
@@ -78,8 +80,8 @@ function draw_pings(x, y, rad) {
     // r, g, b, opacity (alpha, transpareny)
     context.fillStyle = "rgba(255, 0, 0, 0.5)";
 
-    // ctx.arc(x, y, radius, startAngle, endAngle, clockwise);
-    context.arc(x, y, 20, rad, 360, true);
+    // ctx.arc(x, y, radius, startAngle, endAngle, clockwise(t/f));
+    context.arc(x, y, rad, 0, 358.2, true);
     context.fill();
 
 };
